@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "s3_log_storage" {
   statement {
     sid = "LogDeliveryService"
     principals {
-      type        = "service"
+      type        = "Service"
       identifiers = ["logdelivery.elb.amazonaws.com"]
     }
     effect = "Allow"
