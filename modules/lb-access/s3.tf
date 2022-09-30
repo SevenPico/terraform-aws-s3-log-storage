@@ -45,22 +45,29 @@ data "aws_iam_policy_document" "s3_log_storage" {
         "delivery.logs.amazonaws.com",
       ]
     }
-    effect = "Allow"
-    actions = [
-      "s3:PutObject",
-      "s3:GetBucketAcl",
-    ]
-    resources = [
-      "${local.s3_bucket_arn}",
-      "${local.s3_bucket_arn}/*",
-    ]
+    effect    = "Allow"
+    actions   = ["s3:PutObject"]
+    resources = ["${local.s3_bucket_arn}/*"]
     condition {
       test     = "StringEquals"
       variable = "s3:x-amz-acl"
       values   = ["bucket-owner-full-control"]
     }
   }
-
+  statement {
+    sid    = "AWSLogDeliveryAclCheck"
+    effect = "Allow"
+    principals {
+      type = "Service"
+      identifiers = [
+        "logdelivery.elb.amazonaws.com",
+        "logdelivery.elasticloadbalancing.amazonaws.com",
+        "delivery.logs.amazonaws.com",
+      ]
+    }
+    actions   = ["s3:GetBucketAcl"]
+    resources = ["${local.s3_bucket_arn}"]
+  }
 
   #  statement {
   #    sid = ""
