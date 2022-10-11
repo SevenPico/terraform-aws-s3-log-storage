@@ -73,3 +73,15 @@ variable "s3_replication_source_roles" {
   default     = []
   description = "Cross-account IAM Role ARNs that will be allowed to perform S3 replication to this bucket (for replication within the same AWS account, it's not necessary to adjust the bucket policy)."
 }
+
+variable "s3_object_ownership" {
+  type        = string
+  default     = "BucketOwnerEnforced"
+  description = "Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'."
+}
+
+variable "enable_mfa_delete" {
+  type = bool
+  default = false
+  description = "Note that it only applies when Versioning is enabled"
+}
