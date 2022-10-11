@@ -7,7 +7,7 @@ locals {
 
 module "aws_s3_bucket" {
   source  = "app.terraform.io/SevenPico/s3-bucket/aws"
-  version = "3.1.5"
+  version = "3.1.6"
   context = module.context.self
 
   acl                          = var.acl
@@ -28,6 +28,7 @@ module "aws_s3_bucket" {
   bucket_key_enabled            = var.bucket_key_enabled
   bucket_name                   = local.bucket_name
   cors_rule_inputs              = null
+  enable_mfa_delete             = var.enable_mfa_delete
   force_destroy                 = var.force_destroy
   grants                        = []
   ignore_public_acls            = var.ignore_public_acls
