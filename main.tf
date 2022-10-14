@@ -7,7 +7,7 @@ locals {
 
 module "aws_s3_bucket" {
   source  = "app.terraform.io/SevenPico/s3-bucket/aws"
-  version = "3.1.7"
+  version = "3.1.8"
   context = module.context.self
 
   acl                          = var.acl
