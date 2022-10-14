@@ -69,3 +69,9 @@ variable "enable_mfa_delete" {
   description = "Set this to true to enable MFA on bucket. You must also set `enable_versioning` to `true`."
 }
 
+variable "enable_versioning" {
+  type        = bool
+  description = "Enable object versioning, keeping multiple variants of an object in the same bucket"
+  default     = true
+}
+
