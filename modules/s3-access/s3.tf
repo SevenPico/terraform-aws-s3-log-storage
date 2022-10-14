@@ -28,12 +28,13 @@ module "s3_log_storage" {
   bucket_notifications_enabled      = false
   bucket_notifications_prefix       = ""
   bucket_notifications_type         = "SQS"
+  enable_mfa_delete                 = var.enable_mfa_delete
   force_destroy                     = var.force_destroy
   ignore_public_acls                = true
   kms_master_key_arn                = ""
   lifecycle_configuration_rules     = var.lifecycle_configuration_rules
   restrict_public_buckets           = true
-  s3_object_ownership               = "BucketOwnerPreferred"
+  s3_object_ownership               = var.s3_object_ownership
   source_policy_documents           = var.s3_source_policy_documents
   sse_algorithm                     = "AES256"
   versioning_enabled                = true

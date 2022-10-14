@@ -25,7 +25,7 @@ variable "source_policy_documents" {
 
 variable "s3_object_ownership" {
   type        = string
-  default     = "BucketOwnerEnforced"
+  default     = "ObjectWriter"
   description = "Specifies the S3 object ownership control. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'."
 }
 
@@ -38,7 +38,7 @@ variable "force_destroy" {
     EOT
 }
 
-variable "versioning_enabled" {
+variable "enable_versioning" {
   type        = bool
   description = "Enable object versioning, keeping multiple variants of an object in the same bucket"
   default     = true
@@ -206,4 +206,10 @@ variable "s3_replication_source_roles" {
   type        = list(string)
   default     = []
   description = "Cross-account IAM Role ARNs that will be allowed to perform S3 replication to this bucket (for replication within the same AWS account, it's not necessary to adjust the bucket policy)."
+}
+
+variable "enable_mfa_delete" {
+  type = bool
+  default = false
+  description = "Set this to true to enable MFA on bucket. You must also set `enable_versioning` to `true`."
 }
