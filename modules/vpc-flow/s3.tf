@@ -115,5 +115,4 @@ module "s3_log_storage" {
   s3_object_ownership               = var.s3_object_ownership
   source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)],var.s3_source_policy_documents)
   sse_algorithm                     = module.kms_key.alias_arn == "" ? "AES256" : "aws:kms"
-  enable_mfa_delete                 = true
 }
