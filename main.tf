@@ -51,7 +51,7 @@ module "aws_s3_bucket" {
   sse_algorithm                 = var.sse_algorithm
   transfer_acceleration_enabled = false
   user_enabled                  = false
-  versioning_enabled            = var.versioning_enabled
+  versioning_enabled            = var.enable_versioning
   website_inputs                = null
 }
 

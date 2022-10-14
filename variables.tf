@@ -38,7 +38,7 @@ variable "force_destroy" {
     EOT
 }
 
-variable "versioning_enabled" {
+variable "enable_versioning" {
   type        = bool
   description = "Enable object versioning, keeping multiple variants of an object in the same bucket"
   default     = true
@@ -211,5 +211,5 @@ variable "s3_replication_source_roles" {
 variable "enable_mfa_delete" {
   type = bool
   default = false
-  description = "Set this to true to enable MFA on bucket. You must also set `versioning_enabled` to `true`"
+  description = "Set this to true to enable MFA on bucket. You must also set `enable_versioning` to `true`"
 }
