@@ -37,7 +37,7 @@ module "s3_log_storage" {
   s3_object_ownership               = var.s3_object_ownership
   source_policy_documents           = var.s3_source_policy_documents
   sse_algorithm                     = "AES256"
-  enable_versioning                = true
+  enable_versioning                 = true
 
   s3_replication_enabled      = var.s3_replication_enabled
   s3_replication_rules        = var.s3_replication_rules
