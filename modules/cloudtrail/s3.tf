@@ -34,14 +34,14 @@ data "aws_iam_policy_document" "s3_log_storage" {
       variable = "aws:SourceAccount"
       values   = concat([data.aws_caller_identity.current.account_id], var.source_accounts)
     }
-    condition {
-      test     = "ArnLike"
-      variable = "aws:SourceArn"
-      values   = concat(
-        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
-        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-      )
-    }
+#    condition {
+#      test     = "ArnLike"
+#      variable = "aws:SourceArn"
+#      values   = concat(
+#        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
+#        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
+#      )
+#    }
   }
   statement {
     sid = "AWSCloudTrailWrite"
