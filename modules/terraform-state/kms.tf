@@ -4,7 +4,7 @@
 module "kms_key_context" {
   source  = "app.terraform.io/SevenPico/context/null"
   version = "1.1.0"
-  context = module.s3_log_storage_context.self
+  context = module.tfstate_storage_context.self
   enabled = var.create_kms_key && module.context.enabled
 }
 
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "kms_key" {
   }
 
   statement {
-    sid    = "Allow Cloudtrail and Config to use the key"
+    sid    = "Allow AWS Log Delivery to use the key"
     effect = "Allow"
     actions = [
       "kms:Encrypt*",
@@ -53,19 +53,17 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:GenerateDataKey*",
       "kms:Describe*"
     ]
-    resources = [
-      "*"
-    ]
+    resources = ["*"]
     principals {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com", "config.amazonaws.com"]
+      type = "Service"
+      identifiers = ["delivery.logs.amazonaws.com"]
     }
   }
 }
 
 
 # ------------------------------------------------------------------------------
-# KMS Key Policy
+# KMS Key
 # ------------------------------------------------------------------------------
 module "kms_key" {
   source  = "app.terraform.io/SevenPico/kms-key/aws"
@@ -74,7 +72,7 @@ module "kms_key" {
 
   customer_master_key_spec = "SYMMETRIC_DEFAULT"
   deletion_window_in_days  = var.kms_key_deletion_window_in_days
-  description              = "KMS key for S3"
+  description              = "KMS key for AWS Log Delivery"
   enable_key_rotation      = var.kms_key_enable_key_rotation
   key_usage                = "ENCRYPT_DECRYPT"
   multi_region             = false

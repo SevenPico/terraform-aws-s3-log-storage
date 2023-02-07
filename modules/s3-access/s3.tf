@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "s3_log_storage_context" {
   source     = "app.terraform.io/SevenPico/context/null"
-  version    = "1.0.2"
+  version    = "1.1.0"
   context    = module.context.self
   attributes = ["s3-access-logs"]
 }

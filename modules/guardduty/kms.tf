@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "kms_key_context" {
   source  = "app.terraform.io/SevenPico/context/null"
-  version = "1.0.2"
+  version = "1.1.0"
   context = module.s3_log_storage_context.self
   enabled = var.create_kms_key && module.context.enabled
 }
