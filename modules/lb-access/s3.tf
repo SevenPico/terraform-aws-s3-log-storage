@@ -68,62 +68,6 @@ data "aws_iam_policy_document" "s3_log_storage" {
     actions   = ["s3:GetBucketAcl"]
     resources = ["${local.s3_bucket_arn}"]
   }
-
-  #  statement {
-  #    sid = ""
-  #    principals {
-  #      type        = "Service"
-  #      identifiers = ["delivery.logs.amazonaws.com"]
-  #    }
-  #    effect = "Allow"
-  #    actions = [
-  #      "s3:PutObject"
-  #    ]
-  #    resources = ["${local.s3_bucket_arn}/*"]
-  #    condition {
-  #      test     = "StringEquals"
-  #      variable = "s3:x-amz-acl"
-  #      values   = ["bucket-owner-full-control"]
-  #    }
-  #    condition {
-  #      test     = "StringEquals"
-  #      variable = "aws:SourceAccount"
-  #      values   = concat([data.aws_caller_identity.current.account_id], var.source_accounts)
-  #    }
-  #    condition {
-  #      test     = "ArnLike"
-  #      variable = "aws:SourceArn"
-  #      values   = concat(
-  #        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
-  #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-  #      )
-  #    }
-  #  }
-  #  statement {
-  #    sid    = ""
-  #    effect = "Allow"
-  #    principals {
-  #      type        = "Service"
-  #      identifiers = ["delivery.logs.amazonaws.com"]
-  #    }
-  #    actions = [
-  #      "s3:GetBucketAcl"
-  #    ]
-  #    resources = ["${local.s3_bucket_arn}"]
-  #    condition {
-  #      test     = "StringEquals"
-  #      variable = "aws:SourceAccount"
-  #      values   = concat([data.aws_caller_identity.current.account_id], var.source_accounts)
-  #    }
-  #    condition {
-  #      test     = "ArnLike"
-  #      variable = "aws:SourceArn"
-  #      values   = concat(
-  #        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
-  #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-  #      )
-  #    }
-  #  }
 }
 
 

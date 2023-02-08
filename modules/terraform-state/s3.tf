@@ -23,51 +23,6 @@ data "aws_elb_service_account" "tfstate_storage" {
 data "aws_iam_policy_document" "tfstate_storage" {
   count = module.tfstate_storage_context.enabled ? 1 : 0
 
-  statement {
-    sid = "ElbAccountIdAccess"
-    principals {
-      type        = "AWS"
-      identifiers = [join("", data.aws_elb_service_account.tfstate_storage.*.arn)]
-    }
-    effect = "Allow"
-    actions = [
-      "s3:PutObject"
-    ]
-    resources = ["${local.s3_bucket_arn}/*"]
-  }
-  statement {
-    sid = "LogDeliveryService"
-    principals {
-      type = "Service"
-      identifiers = [
-        "logdelivery.elb.amazonaws.com",
-        "logdelivery.elasticloadbalancing.amazonaws.com",
-        "delivery.logs.amazonaws.com",
-      ]
-    }
-    effect    = "Allow"
-    actions   = ["s3:PutObject"]
-    resources = ["${local.s3_bucket_arn}/*"]
-    condition {
-      test     = "StringEquals"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
-    }
-  }
-  statement {
-    sid    = "AWSLogDeliveryAclCheck"
-    effect = "Allow"
-    principals {
-      type = "Service"
-      identifiers = [
-        "logdelivery.elb.amazonaws.com",
-        "logdelivery.elasticloadbalancing.amazonaws.com",
-        "delivery.logs.amazonaws.com",
-      ]
-    }
-    actions   = ["s3:GetBucketAcl"]
-    resources = ["${local.s3_bucket_arn}"]
-  }
 }
 
 
