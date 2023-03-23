@@ -10,6 +10,10 @@ output "bucket_fqdn" {
   value = module.s3_log_storage.bucket_domain_name
 }
 
+output "bucket_regional_fqdn" {
+  value = module.s3_log_storage.bucket_regional_domain_name
+}
+
 output "kms_key_arn" {
   value       = module.kms_key.key_arn
   description = "Key ARN"

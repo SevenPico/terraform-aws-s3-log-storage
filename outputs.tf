@@ -3,6 +3,11 @@ output "bucket_domain_name" {
   description = "FQDN of bucket"
 }
 
+output "bucket_regional_domain_name" {
+  value = module.aws_s3_bucket.bucket_regional_domain_name
+  description = "Regional FQDN of bucket."
+}
+
 output "bucket_id" {
   value       = module.context.id #module.aws_s3_bucket.bucket_id #FIXME - this could be bad if bucket name is overwritten
   description = "Bucket Name (aka ID)"
