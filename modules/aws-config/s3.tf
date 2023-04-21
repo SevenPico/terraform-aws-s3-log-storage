@@ -9,7 +9,7 @@ module "s3_log_storage_context" {
 }
 
 locals {
-  s3_log_storage_arn = format("arn:%s:s3:::%s", data.aws_partition.current.id, module.s3_log_storage_context.id)
+  s3_log_storage_arn = format("arn:%s:s3:::%s", try(data.aws_partition.current[0].id, ""), module.s3_log_storage_context.id)
   s3_object_prefix   = format("%s/AWSLogs/*", local.s3_log_storage_arn)
 }
 
@@ -38,13 +38,13 @@ data "aws_iam_policy_document" "s3_log_storage" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = concat([data.aws_caller_identity.current.account_id], var.source_accounts)
+      values   = concat([local.account_id], var.source_accounts)
     }
 #    condition {
 #      test     = "ArnLike"
 #      variable = "aws:SourceArn"
 #      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
+#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
 #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
 #      )
 #    }
@@ -67,13 +67,13 @@ data "aws_iam_policy_document" "s3_log_storage" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = concat([data.aws_caller_identity.current.account_id], var.source_accounts)
+      values   = concat([local.account_id], var.source_accounts)
     }
 #    condition {
 #      test     = "ArnLike"
 #      variable = "aws:SourceArn"
 #      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
+#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
 #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
 #      )
 #    }
@@ -98,13 +98,13 @@ data "aws_iam_policy_document" "s3_log_storage" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = concat([data.aws_caller_identity.current.account_id], var.source_accounts)
+      values   = concat([local.account_id], var.source_accounts)
     }
 #    condition {
 #      test     = "ArnLike"
 #      variable = "aws:SourceArn"
 #      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${data.aws_caller_identity.current.account_id}:*"],
+#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
 #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
 #      )
 #    }

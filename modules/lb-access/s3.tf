@@ -13,7 +13,7 @@ module "s3_log_storage_context" {
 # S3 Log Storage IAM Policy
 # ------------------------------------------------------------------------------
 locals {
-  s3_bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${module.s3_log_storage_context.id}"
+  s3_bucket_arn = "arn:${try(data.aws_partition.current[0].partition, "")}:s3:::${module.s3_log_storage_context.id}"
 }
 
 data "aws_elb_service_account" "s3_log_storage" {
