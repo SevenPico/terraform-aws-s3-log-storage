@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "kms_key" {
   statement {
     sid = "Allow GuardDuty to encrypt findings"
     actions = ["kms:GenerateDataKey"]
-    resources = ["arn:aws:kms:${data.aws_region.current.name}:${local.account_id}:key/*"]
+    resources = ["arn:aws:kms:${local.region}:${local.account_id}:key/*"]
     principals {
       type        = "Service"
       identifiers = ["guardduty.amazonaws.com"]
