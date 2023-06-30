@@ -13,6 +13,7 @@ module "kms_key_context" {
 # KMS Key Policy
 # ------------------------------------------------------------------------------
 data "aws_iam_policy_document" "kms_key" {
+  #checkov:skip=CKV_AWS_356:skipping 'Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions'
   count = module.kms_key_context.enabled ? 1 : 0
 
   statement {
@@ -38,14 +39,14 @@ data "aws_iam_policy_document" "kms_key" {
     #bridgecrew:skip=CKV_AWS_111:This policy applies only to the key it is attached to
     resources = ["*"]
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["${local.arn_prefix}:iam::${local.account_id}:root"]
     }
   }
 
   statement {
-    sid = "Allow GuardDuty to encrypt findings"
-    actions = ["kms:GenerateDataKey"]
+    sid       = "Allow GuardDuty to encrypt findings"
+    actions   = ["kms:GenerateDataKey"]
     resources = ["arn:aws:kms:${local.region}:${local.account_id}:key/*"]
     principals {
       type        = "Service"

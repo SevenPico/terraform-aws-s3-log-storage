@@ -40,14 +40,14 @@ data "aws_iam_policy_document" "s3_log_storage" {
       variable = "aws:SourceAccount"
       values   = concat([local.account_id], var.source_accounts)
     }
-#    condition {
-#      test     = "ArnLike"
-#      variable = "aws:SourceArn"
-#      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
-#        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-#      )
-#    }
+    #    condition {
+    #      test     = "ArnLike"
+    #      variable = "aws:SourceArn"
+    #      values   = concat(
+    #        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
+    #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
+    #      )
+    #    }
   }
 
   statement {
@@ -69,14 +69,14 @@ data "aws_iam_policy_document" "s3_log_storage" {
       variable = "aws:SourceAccount"
       values   = concat([local.account_id], var.source_accounts)
     }
-#    condition {
-#      test     = "ArnLike"
-#      variable = "aws:SourceArn"
-#      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
-#        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-#      )
-#    }
+    #    condition {
+    #      test     = "ArnLike"
+    #      variable = "aws:SourceArn"
+    #      values   = concat(
+    #        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
+    #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
+    #      )
+    #    }
   }
 
   statement {
@@ -100,14 +100,14 @@ data "aws_iam_policy_document" "s3_log_storage" {
       variable = "aws:SourceAccount"
       values   = concat([local.account_id], var.source_accounts)
     }
-#    condition {
-#      test     = "ArnLike"
-#      variable = "aws:SourceArn"
-#      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
-#        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-#      )
-#    }
+    #    condition {
+    #      test     = "ArnLike"
+    #      variable = "aws:SourceArn"
+    #      values   = concat(
+    #        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
+    #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
+    #      )
+    #    }
 
     resources = [local.s3_object_prefix]
   }
@@ -140,7 +140,7 @@ module "s3_log_storage" {
   lifecycle_configuration_rules     = var.lifecycle_configuration_rules
   restrict_public_buckets           = true
   s3_object_ownership               = var.s3_object_ownership
-  source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)],var.s3_source_policy_documents)
+  source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)], var.s3_source_policy_documents)
   sse_algorithm                     = module.kms_key.alias_arn == "" ? "AES256" : "aws:kms"
   enable_versioning                 = true
 }
