@@ -21,13 +21,13 @@ data "aws_iam_policy_document" "s3_log_storage" {
       type        = "AWS"
       identifiers = [for account in var.source_accounts : "${local.arn_prefix}:iam::${account}:root"]
     }
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "s3:GetBucketAcl",
       "s3:PutBucketAcl",
       "s3:List*"
     ]
-    resources = ["${local.arn_prefix}:s3:::${module.s3_log_storage_context.id}",]
+    resources = ["${local.arn_prefix}:s3:::${module.s3_log_storage_context.id}", ]
   }
 }
 
@@ -58,7 +58,7 @@ module "s3_log_storage" {
   lifecycle_configuration_rules     = var.lifecycle_configuration_rules
   restrict_public_buckets           = true
   s3_object_ownership               = var.s3_object_ownership
-  source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)],var.s3_source_policy_documents)
+  source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)], var.s3_source_policy_documents)
   sse_algorithm                     = module.kms_key.alias_arn == "" ? "AES256" : "aws:kms"
   enable_versioning                 = true
 }
