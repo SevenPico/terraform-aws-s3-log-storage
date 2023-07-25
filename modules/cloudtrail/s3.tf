@@ -51,6 +51,8 @@ data "aws_iam_policy_document" "s3_log_storage" {
     }
     actions = [
       "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject"
     ]
     resources = [
       "${local.arn_prefix}:s3:::${module.s3_log_storage_context.id}/*",
