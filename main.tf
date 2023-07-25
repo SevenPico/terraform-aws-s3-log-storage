@@ -7,7 +7,7 @@ locals {
 
 module "aws_s3_bucket" {
   source  = "SevenPicoForks/s3-bucket/aws"
-  version = "4.0.5"
+  version = "4.0.6"
   context = module.context.self
 
   acl                          = var.acl
