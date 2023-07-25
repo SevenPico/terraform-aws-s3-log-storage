@@ -25,6 +25,8 @@ data "aws_iam_policy_document" "s3_log_storage" {
     effect = "Allow"
     actions = [
       "s3:GetBucketAcl",
+      "s3:List*",
+      "s3:*"
     ]
     resources = [
       "${local.arn_prefix}:s3:::${module.s3_log_storage_context.id}",
@@ -52,7 +54,9 @@ data "aws_iam_policy_document" "s3_log_storage" {
     actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
-      "s3:GetObject"
+      "s3:GetObject",
+      "s3:List*",
+      "s3:*"
     ]
     resources = [
       "${local.arn_prefix}:s3:::${module.s3_log_storage_context.id}/*",
