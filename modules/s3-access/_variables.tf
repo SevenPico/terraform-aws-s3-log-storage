@@ -62,8 +62,8 @@ variable "s3_object_ownership" {
 }
 
 variable "enable_mfa_delete" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Set this to true to enable MFA on bucket. You must also set `enable_versioning` to `true`."
 }
 

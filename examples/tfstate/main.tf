@@ -1,6 +1,6 @@
 
 module "tfstate" {
-  source  = "../../modules/terraform-state"
+  source  = "../../modules/lb-access"
   context = module.context.self
 
   access_log_bucket_name            = ""
@@ -17,5 +17,4 @@ module "tfstate" {
   s3_replication_rules              = var.s3_lifecycle_configuration_rules
   s3_replication_source_roles       = []
   s3_source_policy_documents        = []
-  source_accounts                   = []
 }

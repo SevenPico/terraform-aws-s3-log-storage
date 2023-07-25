@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "s3_log_storage" {
       type        = "Service"
       identifiers = ["cloudtrail.amazonaws.com"]
     }
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "s3:GetBucketAcl",
     ]
@@ -34,14 +34,14 @@ data "aws_iam_policy_document" "s3_log_storage" {
       variable = "aws:SourceAccount"
       values   = concat([local.account_id], var.source_accounts)
     }
-#    condition {
-#      test     = "ArnLike"
-#      variable = "aws:SourceArn"
-#      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
-#        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-#      )
-#    }
+    #    condition {
+    #      test     = "ArnLike"
+    #      variable = "aws:SourceArn"
+    #      values   = concat(
+    #        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
+    #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
+    #      )
+    #    }
   }
   statement {
     sid = "AWSCloudTrailWrite"
@@ -55,27 +55,27 @@ data "aws_iam_policy_document" "s3_log_storage" {
     resources = [
       "${local.arn_prefix}:s3:::${module.s3_log_storage_context.id}/*",
     ]
-#    condition {
-#      test     = "StringEquals"
-#      variable = "s3:x-amz-acl"
-#
-#      values = [
-#        "bucket-owner-full-control",
-#      ]
-#    }
+    #    condition {
+    #      test     = "StringEquals"
+    #      variable = "s3:x-amz-acl"
+    #
+    #      values = [
+    #        "bucket-owner-full-control",
+    #      ]
+    #    }
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
       values   = concat([local.account_id], var.source_accounts)
     }
-#    condition {
-#      test     = "ArnLike"
-#      variable = "aws:SourceArn"
-#      values   = concat(
-#        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
-#        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
-#      )
-#    }
+    #    condition {
+    #      test     = "ArnLike"
+    #      variable = "aws:SourceArn"
+    #      values   = concat(
+    #        ["${local.arn_prefix}:logs:*:${local.account_id}:*"],
+    #        [for account in var.source_accounts : "arn:aws:logs:*:${account}:*"]
+    #      )
+    #    }
   }
 }
 
@@ -105,7 +105,7 @@ module "s3_log_storage" {
   lifecycle_configuration_rules     = var.lifecycle_configuration_rules
   restrict_public_buckets           = true
   s3_object_ownership               = var.s3_object_ownership
-  source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)],var.s3_source_policy_documents)
+  source_policy_documents           = concat([one(data.aws_iam_policy_document.s3_log_storage[*].json)], var.s3_source_policy_documents)
   sse_algorithm                     = module.kms_key.alias_arn == "" ? "AES256" : "aws:kms"
   enable_versioning                 = true
 }
