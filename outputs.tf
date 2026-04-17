@@ -9,7 +9,7 @@ output "bucket_regional_domain_name" {
 }
 
 output "bucket_id" {
-  value       = module.context.id #module.aws_s3_bucket.bucket_id #FIXME - this could be bad if bucket name is overwritten
+  value       = try(module.aws_s3_bucket.bucket_id, null)
   description = "Bucket Name (aka ID)"
 }
 
