@@ -75,3 +75,9 @@ variable "enable_versioning" {
   default     = true
 }
 
+variable "blocked_encryption_types" {
+  type        = list(string)
+  default     = ["NONE"]
+  description = "List of server-side encryption types to block for object uploads. Valid values are `SSE-C` and `NONE`."
+}
+

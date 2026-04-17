@@ -7,7 +7,7 @@ locals {
 
 module "aws_s3_bucket" {
   source  = "SevenPicoForks/s3-bucket/aws"
-  version = "4.0.6"
+  version = "4.1.2"
   context = module.context.self
 
   acl                          = var.acl
@@ -49,6 +49,7 @@ module "aws_s3_bucket" {
   s3_replication_source_roles   = var.s3_replication_source_roles
   source_policy_documents       = var.source_policy_documents
   sse_algorithm                 = var.sse_algorithm
+  blocked_encryption_types      = var.blocked_encryption_types
   transfer_acceleration_enabled = false
   user_enabled                  = false
   versioning_enabled            = var.enable_versioning

@@ -35,6 +35,7 @@ module "s3_log_storage" {
   lifecycle_configuration_rules     = var.lifecycle_configuration_rules
   restrict_public_buckets           = true
   s3_object_ownership               = var.s3_object_ownership
+  blocked_encryption_types          = var.blocked_encryption_types
   source_policy_documents           = var.s3_source_policy_documents
   sse_algorithm                     = "AES256"
   enable_versioning                 = true
